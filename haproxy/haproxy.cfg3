@@ -1,0 +1,35 @@
+global
+  log 127.0.0.1 local0
+  log 127.0.0.1 local1 notice
+  maxconn 4096
+
+defaults
+  log global
+  mode http
+  option httplog
+  option dontlognull
+  timeout connect 5000ms
+  timeout client 50000ms
+  timeout server 50000ms
+
+listen stats
+  bind 0.0.0.0:20000
+  mode http
+  stats enable
+  stats hide-version
+  stats scope .
+  stats realm Haproxy\ Statistics
+  stats uri /
+  stats auth admin:admin
+
+listen rabbitmq-tcp
+    bind    *:5672
+    mode    tcp
+    log global
+      retries 3
+      option tcplog
+    option persist
+    balance roundrobin
+    server  rabbitmq1 rabbitmq1:5672 check inter 5s rise 2 fall 5
+    server  rabbitmq2 rabbitmq2:5672 check inter 5s rise 2 fall 5
+    server  rabbitmq3 rabbitmq3:5672 check inter 5s rise 2 fall 5

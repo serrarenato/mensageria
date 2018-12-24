@@ -35,6 +35,10 @@ http://localhost:8081/#/ -- RabbitMQ2
 http://localhost:8082/#/ -- RabbitMQ3
 ```
 
+User: mqadmin
+
+Password: Admin123XX_
+
 To see the HAProxy console access:
 
 ```sh
