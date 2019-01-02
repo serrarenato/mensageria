@@ -21,7 +21,8 @@ public class EmployeeRegistrationController {
 	@RequestMapping("/register")
 	@ResponseBody
 	public String orderFood(@RequestBody Employee employee) {
-		employeeRegistrationSource.employeeRegistration().send(MessageBuilder.withPayload(employee).build());
+		for (int x = 0; x < 100; x++)
+			employeeRegistrationSource.employeeRegistration().send(MessageBuilder.withPayload(employee).build());
 		System.out.println(employee.toString());
 		return "Employee Registered";
 	}
